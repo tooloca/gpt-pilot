@@ -70,9 +70,9 @@ def ask_to_store_prompt(project, path_id):
 
 
 def ask_user_feedback(project, path_id, ask_feedback):
-    question = ('Were you able to create any app that works? Please write any feedback you have or just press ENTER to exit:')
     feedback = None
     if ask_feedback:
+        question = ('Were you able to create any app that works? Please write any feedback you have or just press ENTER to exit:')
         feedback = styled_text(project, question, ignore_user_input_count=True)
     if feedback:  # only send if user provided feedback
         telemetry.set("user_feedback", feedback)
@@ -87,8 +87,9 @@ def ask_user_email(project, path_id, ask_feedback):
         "How did GPT Pilot do? We'd love to talk with you and hear your thoughts. "
         "If you'd like to be contacted by us, please provide your email address, or just press ENTER to exit:"
     )
-    feedback = styled_text(project, question, ignore_user_input_count=True)
-    if feedback:  # only send if user provided feedback
+    if feedback := styled_text(
+        project, question, ignore_user_input_count=True
+    ):
         telemetry.set("user_contact", feedback)
         return True
     return False
