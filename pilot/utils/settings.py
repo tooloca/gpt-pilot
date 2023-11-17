@@ -146,8 +146,7 @@ class Loader:
         """
         posix_app_name = cls.APP_NAME.replace(" ", "-").lower()
 
-        xdg_config_home = getenv("XDG_CONFIG_HOME")
-        if xdg_config_home:
+        if xdg_config_home := getenv("XDG_CONFIG_HOME"):
             return Path(xdg_config_home) / Path(posix_app_name)
 
         if sys.platform == "win32" and getenv("APPDATA"):
@@ -313,9 +312,8 @@ def get_version() -> str:
     """
 
     version = get_package_version()
-    commit = get_git_commit()
-    if commit:
-        version = version + "-git" + commit[:7]
+    if commit := get_git_commit():
+        version = f"{version}-git{commit[:7]}"
 
     return version
 

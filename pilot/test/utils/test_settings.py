@@ -20,8 +20,7 @@ from utils.settings import (
 
 @pytest.fixture
 def expected_config_location():
-    xdg_config_home = getenv("XDG_CONFIG_HOME")
-    if xdg_config_home:
+    if xdg_config_home := getenv("XDG_CONFIG_HOME"):
         return join(xdg_config_home, "gpt-pilot", "config.json")
     elif sys.platform in ["darwin", "linux"]:
         return expanduser("~/.gpt-pilot/config.json")
@@ -155,4 +154,4 @@ def test_get_version():
     except Exception:
         commit_suffix = ""
 
-    assert get_version() == "0.0.0" + commit_suffix
+    assert get_version() == f"0.0.0{commit_suffix}"
